@@ -1,0 +1,8 @@
+﻿{
+  "variants": {
+    "facing=north": { "model": "customarts:block/martial_stand" },
+    "facing=south": { "model": "customarts:block/martial_stand", "y": 180 },
+    "facing=west":  { "model": "customarts:block/martial_stand", "y": 270 },
+    "facing=east":  { "model": "customarts:block/martial_stand", "y": 90 }
+  }
+}

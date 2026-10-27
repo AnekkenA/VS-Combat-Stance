@@ -1,0 +1,21 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "PTP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "T": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "result": {
+    "id": "vs_combatstance:scroll",
+    "nbt": "{TechniqueId:\"vault_leap\",DamageMult:1.15d,SynergyMult:1.15d,SpeedMult:1.15d}"
+  }
+}

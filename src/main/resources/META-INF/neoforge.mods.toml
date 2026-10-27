@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="MIT"
+
+[[mods]]
+modId="vs_combatstance"
+version="${mod_version}"
+displayName="VS: Combat Stance"
+authors="lma"
+description='''
+Official combat add-on for Voxel Stand: Martial arts combos, playerAnimator stances, and GeckoLib 4 nocturnal elite enemies.
+'''
+
+[[dependencies.vs_combatstance]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neoforge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.vs_combatstance]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# СТРОГАЯ ЗАВИСИМОСТЬ: Дополнение VS: Combat Stance требует установленный основной мод Voxel Stand!
+[[dependencies.vs_combatstance]]
+    modId="voxelstand"
+    type="required"
+    versionRange="[1.0.0,)"
+    ordering="AFTER"
+    side="BOTH"

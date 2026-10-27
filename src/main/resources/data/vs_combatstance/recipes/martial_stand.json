@@ -1,0 +1,18 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " W ",
+    "SIS",
+    "PPP"
+  ],
+  "key": {
+    "W": { "item": "minecraft:red_wool" },
+    "S": { "item": "minecraft:stick" },
+    "I": { "item": "minecraft:iron_ingot" },
+    "P": { "tag": "minecraft:planks" }
+  },
+  "result": {
+    "id": "vs_combatstance:martial_stand"
+  }
+}

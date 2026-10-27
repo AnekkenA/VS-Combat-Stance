@@ -1,0 +1,21 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "PTP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "T": {
+      "item": "minecraft:host_armor_trim_smithing_template"
+    }
+  },
+  "result": {
+    "id": "vs_combatstance:scroll",
+    "nbt": "{TechniqueId:\"dragon_fang\",DamageMult:1.15d,SynergyMult:1.15d,SpeedMult:1.15d}"
+  }
+}
