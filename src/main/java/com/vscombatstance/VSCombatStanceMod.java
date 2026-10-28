@@ -67,7 +67,6 @@ public class VSCombatStanceMod {
         modEventBus.addListener(this::entityAttributeEvent);
 
         NeoForge.EVENT_BUS.register(new CombatEvents());
-        NeoForge.EVENT_BUS.register(new com.vscombatstance.threats.combat.ThreatCombatEvents());
 
         LOGGER.info("VS: Combat Stance (Arts + Threats) initialized successfully for Voxel Stand!");
     }
