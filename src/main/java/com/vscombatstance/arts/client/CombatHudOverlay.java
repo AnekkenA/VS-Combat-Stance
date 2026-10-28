@@ -16,6 +16,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class CombatHudOverlay {
 
+    private static long styleIndicatorEndTimeMs = 0;
+
+    public static void showStyleIndicator() {
+        styleIndicatorEndTimeMs = System.currentTimeMillis() + 2000L; // 2 секунды
+    }
+
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
@@ -26,7 +32,10 @@ public class CombatHudOverlay {
             int screenWidth = graphics.guiWidth();
             int screenHeight = graphics.guiHeight();
 
-            renderStyleIndicator(graphics, mc.font, screenWidth, screenHeight, cap);
+            // Показываем индикатор только в течение 2 секунд после переключения стиля
+            if (System.currentTimeMillis() < styleIndicatorEndTimeMs) {
+                renderStyleIndicator(graphics, mc.font, screenWidth, screenHeight, cap);
+            }
 
             ComboState state = ComboEngine.getState(player);
             if (state.isActive()) {

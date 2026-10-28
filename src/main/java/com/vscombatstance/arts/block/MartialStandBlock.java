@@ -63,7 +63,7 @@ public class MartialStandBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction facing = context.getHorizontalDirection();
+        Direction facing = context.getHorizontalDirection().getOpposite();
         Direction right = facing.getClockWise();
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();

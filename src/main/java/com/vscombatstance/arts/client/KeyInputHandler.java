@@ -51,6 +51,7 @@ public class KeyInputHandler {
             if (cap != null) {
                 cap.cycleActiveStyle();
             }
+            CombatHudOverlay.showStyleIndicator();
             PacketDistributor.sendToServer(new ModNetwork.PacketCycleStyle());
         }
 
