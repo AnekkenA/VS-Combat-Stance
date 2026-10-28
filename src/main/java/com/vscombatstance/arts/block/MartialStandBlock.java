@@ -63,7 +63,7 @@ public class MartialStandBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction facing = context.getHorizontalDirection().getOpposite();
+        Direction facing = context.getHorizontalDirection();
         Direction right = facing.getClockWise();
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
@@ -106,6 +106,20 @@ public class MartialStandBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (!level.isClientSide) {
+                Direction facing = state.getValue(FACING);
+                Direction right = facing.getClockWise();
+                removePart(level, pos.relative(right));
+                removePart(level, pos.above());
+                removePart(level, pos.above().relative(right));
+            }
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
+    }
+
+    @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             Direction facing = state.getValue(FACING);
@@ -120,7 +134,7 @@ public class MartialStandBlock extends BaseEntityBlock {
     private void removePart(Level level, BlockPos partPos) {
         BlockState partState = level.getBlockState(partPos);
         if (partState.is(ModBlocks.MARTIAL_STAND_PART.get())) {
-            level.setBlock(partPos, Blocks.AIR.defaultBlockState(), 3);
+            level.removeBlock(partPos, false);
         }
     }
 

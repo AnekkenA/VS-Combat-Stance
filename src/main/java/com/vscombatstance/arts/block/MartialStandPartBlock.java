@@ -91,6 +91,25 @@ public class MartialStandPartBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (!level.isClientSide) {
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be instanceof MartialStandPartBlockEntity part) {
+                    BlockPos master = part.getMasterPos();
+                    if (master != null && !master.equals(BlockPos.ZERO) && !master.equals(pos)) {
+                        BlockState masterState = level.getBlockState(master);
+                        if (!masterState.isAir()) {
+                            level.destroyBlock(master, true);
+                        }
+                    }
+                }
+            }
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
+    }
+
+    @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             BlockEntity be = level.getBlockEntity(pos);
