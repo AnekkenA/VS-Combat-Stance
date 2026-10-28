@@ -1,4 +1,4 @@
-﻿{
+{
     "itemGroup.customarts":  "CustomArts: Боевые искусства",
     "technique.customarts.piercing_lunge.name":  "Колющий выпад",
     "technique.customarts.fortress_bastion.desc":  "Полное поглощение урона и подготовка сокрушительной контратаки.",
@@ -29,6 +29,8 @@
     "technique.customarts.delayed_feint.desc":  "Ложный выпад, дезориентирующий врага и сбивающий блок щита.",
     "technique.customarts.deflect_parry.name":  "Отражение (Парирование)",
     "block.customarts.martial_stand":  "Стойка мастера",
+    "block.vs_combatstance.martial_stand": "Стойка мастера",
+    "block.vs_combatstance.martial_stand_part": "Стойка мастера",
     "technique.customarts.volley_spread.name":  "Веерный залп",
     "tooltip.customarts.trigger_key":  "Клавиша удара: [%s]",
     "technique.customarts.flurry.name":  "Шквал клинков",

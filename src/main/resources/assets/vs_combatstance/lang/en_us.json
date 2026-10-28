@@ -1,4 +1,4 @@
-﻿{
+{
     "itemGroup.customarts":  "CustomArts: Martial Arts",
     "technique.customarts.piercing_lunge.name":  "Piercing Lunge",
     "technique.customarts.fortress_bastion.desc":  "Total damage absorption preparing a devastating counter-attack.",
@@ -29,6 +29,8 @@
     "technique.customarts.delayed_feint.desc":  "False windup breaking enemy guard and disabling shields.",
     "technique.customarts.deflect_parry.name":  "Deflect Parry",
     "block.customarts.martial_stand":  "Martial Stand",
+    "block.vs_combatstance.martial_stand": "Martial Stand",
+    "block.vs_combatstance.martial_stand_part": "Martial Stand",
     "technique.customarts.volley_spread.name":  "Volley Spread",
     "tooltip.customarts.trigger_key":  "Strike Key: [%s]",
     "technique.customarts.flurry.name":  "Flurry of Blades",

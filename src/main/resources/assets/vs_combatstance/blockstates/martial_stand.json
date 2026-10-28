@@ -1,8 +1,8 @@
-﻿{
+{
   "variants": {
-    "facing=north": { "model": "customarts:block/martial_stand" },
-    "facing=south": { "model": "customarts:block/martial_stand", "y": 180 },
-    "facing=west":  { "model": "customarts:block/martial_stand", "y": 270 },
-    "facing=east":  { "model": "customarts:block/martial_stand", "y": 90 }
+    "facing=north": { "model": "vs_combatstance:block/martial_stand" },
+    "facing=south": { "model": "vs_combatstance:block/martial_stand", "y": 180 },
+    "facing=west":  { "model": "vs_combatstance:block/martial_stand", "y": 270 },
+    "facing=east":  { "model": "vs_combatstance:block/martial_stand", "y": 90 }
   }
 }

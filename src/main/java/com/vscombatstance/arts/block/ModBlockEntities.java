@@ -13,4 +13,8 @@ public class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MartialStandBlockEntity>> MARTIAL_STAND_BE =
             BLOCK_ENTITIES.register("martial_stand",
                     () -> BlockEntityType.Builder.of(MartialStandBlockEntity::new, ModBlocks.MARTIAL_STAND.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MartialStandPartBlockEntity>> MARTIAL_STAND_PART_BE =
+            BLOCK_ENTITIES.register("martial_stand_part",
+                    () -> BlockEntityType.Builder.of(MartialStandPartBlockEntity::new, ModBlocks.MARTIAL_STAND_PART.get()).build(null));
 }

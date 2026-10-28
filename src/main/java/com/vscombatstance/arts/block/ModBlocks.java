@@ -16,4 +16,7 @@ public class ModBlocks {
                     .mapColor(MapColor.WOOD)
                     .strength(2.0f, 3.0f)
                     .noOcclusion()));
+
+    public static final DeferredBlock<Block> MARTIAL_STAND_PART = BLOCKS.register("martial_stand_part",
+            () -> new MartialStandPartBlock());
 }
