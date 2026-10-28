@@ -1,6 +1,6 @@
-﻿package com.vscombatstance.arts.client.animator;
+package com.vscombatstance.arts.client.animator;
 
-import com.vscombatstance.arts.CustomArtsMod;
+import com.vscombatstance.VSCombatStanceMod;
 import com.vscombatstance.arts.adapter.WeightAdapter;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class PlayerAnimationManager {
     public static final ResourceLocation ANIMATION_LAYER_ID =
-            new ResourceLocation(VSCombatStanceMod.MODID, "combat_anim");
+            ResourceLocation.fromNamespaceAndPath(VSCombatStanceMod.MODID, "combat_anim");
 
     private static boolean initialized = false;
 
@@ -55,10 +55,9 @@ public class PlayerAnimationManager {
         }
 
         // 2. Ищем скомпилированную анимацию из JSON-ресурсов playerAnimator
-        ResourceLocation animId = new ResourceLocation(VSCombatStanceMod.MODID, techniqueId);
-        KeyframeAnimation animation = PlayerAnimationRegistry.getAnimation(animId);
-
-        if (animation == null) {
+        ResourceLocation animId = ResourceLocation.fromNamespaceAndPath(VSCombatStanceMod.MODID, techniqueId);
+        dev.kosmx.playerAnim.api.IPlayable playable = PlayerAnimationRegistry.getAnimation(animId);
+        if (!(playable instanceof KeyframeAnimation animation)) {
             // Если для данного приема пока нет JSON-файла, отдаем управление процедурному аниматору
             return false;
         }

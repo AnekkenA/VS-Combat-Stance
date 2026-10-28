@@ -1,14 +1,14 @@
-﻿package com.vscombatstance.threats.client;
+package com.vscombatstance.threats.client;
 
-import com.vscombatstance.threats.CustomThreatsMod;
+import com.vscombatstance.VSCombatStanceMod;
 import com.vscombatstance.threats.client.renderer.EliteGuardRenderer;
 import com.vscombatstance.threats.entity.ModEntities;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-@Mod.EventBusSubscriber(modid = VSCombatStanceMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = VSCombatStanceMod.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
 
     @SubscribeEvent

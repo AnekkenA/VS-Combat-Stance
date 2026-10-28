@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.client.renderer;
+package com.vscombatstance.threats.client.renderer;
 
 import com.vscombatstance.threats.client.model.EliteGuardModel;
 import com.vscombatstance.threats.entity.EliteGuardEntity;

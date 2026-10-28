@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.world;
+package com.vscombatstance.threats.world;
 
 import com.vscombatstance.threats.ai.DynamicShieldGoal;
 import com.vscombatstance.threats.ai.LeashTerritoryGoal;
@@ -16,14 +16,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import com.vscombatstance.VSCombatStanceMod;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = VSCombatStanceMod.MODID)
 public class StructureAmbushHandler {
     private static final Set<BlockPos> TRIGGERED_CHESTS = new HashSet<>();
 

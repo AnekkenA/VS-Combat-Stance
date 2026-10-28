@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.item;
+package com.vscombatstance.arts.item;
 
 import net.minecraft.ChatFormatting;
 import java.util.Random;

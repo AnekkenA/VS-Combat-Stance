@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.combat;
+package com.vscombatstance.arts.combat;
 
 import com.vscombatstance.arts.technique.Technique;
 import net.minecraft.world.item.ItemStack;
@@ -98,6 +98,7 @@ public class ComboState {
     public int getCurrentStep() { return currentStep; }
     public void setCurrentStep(int step) { this.currentStep = step; }
     public int getTimer() { return timer; }
+    public int getMaxTimer() { return stepDuration; }
     public int getStepDuration() { return stepDuration; }
     public int getWindowStart() { return windowStart; }
     public int getWindowEnd() { return windowEnd; }

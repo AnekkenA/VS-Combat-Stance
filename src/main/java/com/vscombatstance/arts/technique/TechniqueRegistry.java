@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.technique;
+package com.vscombatstance.arts.technique;
 
 import net.minecraft.resources.ResourceLocation;
 import java.util.*;
@@ -7,7 +7,7 @@ public class TechniqueRegistry {
     private static final Map<String, Technique> ARTS = new LinkedHashMap<>();
 
     public static final Technique OVERHEAD_SLAM = register(new Technique.Builder("overhead_slam", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "rib_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "rib_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(18, 9, 15)
             .multiplier(1.25)
@@ -16,7 +16,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique WHIRLWIND = register(new Technique.Builder("whirlwind", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "snout_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "snout_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(20, 10, 17)
             .multiplier(1.20)
@@ -25,7 +25,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique FLURRY = register(new Technique.Builder("flurry", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "wild_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "wild_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(14, 6, 12)
             .multiplier(1.15)
@@ -34,7 +34,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique CRESCENT_CLEAVE = register(new Technique.Builder("crescent_cleave", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "coast_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "coast_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(16, 7, 13)
             .multiplier(1.18)
@@ -43,7 +43,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique SHIELD_BASH = register(new Technique.Builder("shield_bash", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "sentry_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "sentry_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(15, 6, 12)
             .multiplier(1.15)
@@ -52,7 +52,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique FORTRESS_BASTION = register(new Technique.Builder("fortress_bastion", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "eye_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "eye_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(22, 5, 18)
             .multiplier(1.10)
@@ -61,7 +61,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique PIERCING_LUNGE = register(new Technique.Builder("piercing_lunge", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "spire_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "spire_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(14, 6, 11)
             .multiplier(1.22)
@@ -70,7 +70,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique SHADOW_SEVER = register(new Technique.Builder("shadow_sever", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "silence_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "silence_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(16, 8, 14)
             .multiplier(1.25)
@@ -79,7 +79,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique VOLLEY_SPREAD = register(new Technique.Builder("volley_spread", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "dune_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "dune_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(18, 8, 15)
             .multiplier(1.15)
@@ -88,7 +88,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique SNIPER_PIERCING = register(new Technique.Builder("sniper_piercing", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "ward_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "ward_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(24, 14, 21)
             .multiplier(1.25)
@@ -97,7 +97,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique RISING_UPPERCUT = register(new Technique.Builder("rising_uppercut", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "tide_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "tide_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(15, 6, 12)
             .multiplier(1.20)
@@ -106,7 +106,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique EARTHSHAKER = register(new Technique.Builder("earthshaker", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "shaper_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "shaper_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(20, 10, 17)
             .multiplier(1.24)
@@ -115,7 +115,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique CROSS_SLASH = register(new Technique.Builder("cross_slash", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "wayfinder_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "wayfinder_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(16, 7, 13)
             .multiplier(1.20)
@@ -124,7 +124,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique METEOR_CRASH = register(new Technique.Builder("meteor_crash", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "raiser_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "raiser_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(20, 9, 16)
             .multiplier(1.25)
@@ -133,7 +133,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique DRAGON_FANG = register(new Technique.Builder("dragon_fang", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "host_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "host_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(17, 8, 14)
             .multiplier(1.22)
@@ -142,7 +142,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique PHANTOM_THRUST = register(new Technique.Builder("phantom_thrust", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "vex_armor_trim_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "vex_armor_trim_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(15, 6, 12)
             .multiplier(1.18)
@@ -151,7 +151,7 @@ public class TechniqueRegistry {
             .build());
 
     public static final Technique HEAVY_GUILLOTINE = register(new Technique.Builder("heavy_guillotine", TechniqueType.MARTIAL_ART)
-            .source(new ResourceLocation("minecraft", "netherite_upgrade_smithing_template"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "netherite_upgrade_smithing_template"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(22, 12, 19)
             .multiplier(1.25)

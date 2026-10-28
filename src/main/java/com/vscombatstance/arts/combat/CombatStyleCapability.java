@@ -1,27 +1,16 @@
-﻿package com.vscombatstance.arts.combat;
+package com.vscombatstance.arts.combat;
 
-import net.minecraft.core.Direction;
+import com.vscombatstance.VSCombatStanceMod;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.CapabilityManager;
-import net.neoforged.neoforge.common.capabilities.CapabilityToken;
-import net.neoforged.neoforge.common.capabilities.ICapabilitySerializable;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
-public class CombatStyleCapability implements ICapabilitySerializable<CompoundTag> {
-
-    public static final Capability<CombatStyleCapability> INSTANCE =
-            CapabilityManager.get(new CapabilityToken<>() {});
+public class CombatStyleCapability implements INBTSerializable<CompoundTag> {
 
     public static final int STYLE_COUNT = 3;
     private final CombatStyle[] styles = new CombatStyle[STYLE_COUNT];
     private int activeStyleIndex = 0;
-
-    private final LazyOptional<CombatStyleCapability> optional = LazyOptional.of(() -> this);
 
     public CombatStyleCapability() {
         for (int i = 0; i < STYLE_COUNT; i++) {
@@ -55,35 +44,30 @@ public class CombatStyleCapability implements ICapabilitySerializable<CompoundTa
         return activeStyleIndex;
     }
 
-    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == INSTANCE ? optional.cast() : LazyOptional.empty();
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
         tag.putInt("ActiveStyle", activeStyleIndex);
         for (int i = 0; i < STYLE_COUNT; i++) {
-            tag.put("Style_" + i, styles[i].save());
+            tag.put("Style_" + i, styles[i].save(provider));
         }
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         if (nbt.contains("ActiveStyle")) {
             this.activeStyleIndex = nbt.getInt("ActiveStyle");
         }
         for (int i = 0; i < STYLE_COUNT; i++) {
             if (nbt.contains("Style_" + i)) {
-                styles[i].load(nbt.getCompound("Style_" + i));
+                styles[i].load(provider, nbt.getCompound("Style_" + i));
             }
         }
     }
 
-    public static LazyOptional<CombatStyleCapability> get(Player player) {
-        return player.getCapability(INSTANCE);
+    public static CombatStyleCapability get(Player player) {
+        if (player == null) return null;
+        return player.getData(VSCombatStanceMod.COMBAT_STYLES);
     }
 }

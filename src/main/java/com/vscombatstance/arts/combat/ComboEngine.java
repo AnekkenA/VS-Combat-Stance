@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.combat;
+package com.vscombatstance.arts.combat;
 
 import com.vscombatstance.arts.adapter.WeightAdapter;
 import com.vscombatstance.arts.item.ScrollItem;
@@ -37,55 +37,56 @@ public class ComboEngine {
 
     public static boolean triggerKey(Player player, Technique.ActionKey pressedKey) {
         ComboState state = getState(player);
-        CombatStyleCapability.get(player).ifPresent(cap -> {
+        CombatStyleCapability cap = CombatStyleCapability.get(player);
+        if (cap != null) {
             CombatStyle style = cap.getActiveStyle();
-            if (style == null || style.isEmpty()) return;
+            if (style != null && !style.isEmpty()) {
+                if (!state.isActive()) {
+                    // If not active and key matches slot 0, start combo
+                    ItemStack slot0 = style.getScroll(0);
+                    if (!slot0.isEmpty()) {
+                        String techId = ScrollItem.getTechniqueId(slot0);
+                        Technique tech = TechniqueCatalog.find(techId);
+                        if (tech != null && (tech.getActionKey() == pressedKey || tech.getActionKey() == Technique.ActionKey.ANY)) {
+                            state.startCombo(tech, slot0);
+                            executeTechnique(player, tech, slot0, state);
+                        }
+                    }
+                } else {
+                    // Currently in combo: check timing window
+                    int nextStep = state.getCurrentStep() + 1;
+                    if (nextStep >= CombatStyle.SLOTS) {
+                        state.reset();
+                        return state.isActive();
+                    }
 
-            if (!state.isActive()) {
-                // If not active and key matches slot 0, start combo
-                ItemStack slot0 = style.getScroll(0);
-                if (!slot0.isEmpty()) {
-                    String techId = ScrollItem.getTechniqueId(slot0);
+                    ItemStack nextScroll = style.getScroll(nextStep);
+                    if (nextScroll.isEmpty()) {
+                        state.reset();
+                        return state.isActive();
+                    }
+
+                    String techId = ScrollItem.getTechniqueId(nextScroll);
                     Technique tech = TechniqueCatalog.find(techId);
-                    if (tech != null && (tech.getActionKey() == pressedKey || tech.getActionKey() == Technique.ActionKey.ANY)) {
-                        state.startCombo(tech, slot0);
-                        executeTechnique(player, tech, slot0, state);
+                    if (tech == null) {
+                        state.reset();
+                        return state.isActive();
+                    }
+
+                    if (state.isInTimingWindow() && (tech.getActionKey() == pressedKey || tech.getActionKey() == Technique.ActionKey.ANY)) {
+                        // Successful rhythm hit!
+                        state.setCurrentStep(nextStep);
+                        state.setupStep(tech, nextScroll);
+                        executeTechnique(player, tech, nextScroll, state);
+                    } else if (state.getTimer() < state.getWindowStart()) {
+                        // Pressed too early -> dropped combo!
+                        state.reset();
+                        player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                                SoundEvents.SHIELD_BREAK, SoundSource.PLAYERS, 0.7f, 1.5f);
                     }
                 }
-            } else {
-                // Currently in combo: check timing window
-                int nextStep = state.getCurrentStep() + 1;
-                if (nextStep >= CombatStyle.SLOTS) {
-                    state.reset();
-                    return;
-                }
-
-                ItemStack nextScroll = style.getScroll(nextStep);
-                if (nextScroll.isEmpty()) {
-                    state.reset();
-                    return;
-                }
-
-                String techId = ScrollItem.getTechniqueId(nextScroll);
-                Technique tech = TechniqueCatalog.find(techId);
-                if (tech == null) {
-                    state.reset();
-                    return;
-                }
-
-                if (state.isInTimingWindow() && (tech.getActionKey() == pressedKey || tech.getActionKey() == Technique.ActionKey.ANY)) {
-                    // Successful rhythm hit!
-                    state.setCurrentStep(nextStep);
-                    state.setupStep(tech, nextScroll);
-                    executeTechnique(player, tech, nextScroll, state);
-                } else if (state.getTimer() < state.getWindowStart()) {
-                    // Pressed too early -> dropped combo!
-                    state.reset();
-                    player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.SHIELD_BREAK, SoundSource.PLAYERS, 0.7f, 1.5f);
-                }
             }
-        });
+        }
 
         return state.isActive();
     }
@@ -233,7 +234,7 @@ public class ComboEngine {
                 // Buff tier scales: Speed I, II, III. Pitch becomes deeper and thunderous!
                 float pitch = (float) Math.max(0.5, 1.2 - count * 0.2);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(0).get(), SoundSource.PLAYERS, 1.5f, pitch);
+                        SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(0).value(), SoundSource.PLAYERS, 1.5f, pitch);
 
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60 * count, Math.min(2, count - 1)));
                 state.multiplyDamage(1.0 + 0.15 * count);

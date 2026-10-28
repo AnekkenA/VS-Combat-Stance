@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.ai;
+package com.vscombatstance.threats.ai;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -17,6 +17,10 @@ public class LeashTerritoryGoal extends Goal {
         this.mob = mob;
         this.origin = origin;
         this.setFlags(EnumSet.of(Flag.MOVE));
+    }
+
+    public LeashTerritoryGoal(Monster mob, double maxDistance) {
+        this(mob, mob.blockPosition());
     }
 
     @Override

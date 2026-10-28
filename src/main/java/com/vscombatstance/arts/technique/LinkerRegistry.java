@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.technique;
+package com.vscombatstance.arts.technique;
 
 import net.minecraft.resources.ResourceLocation;
 import java.util.*;
@@ -7,7 +7,7 @@ public class LinkerRegistry {
     private static final Map<String, Technique> LINKERS = new LinkedHashMap<>();
 
     public static final Technique VAULT_LEAP = register(new Technique.Builder("vault_leap", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "phantom_membrane"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "phantom_membrane"))
             .actionKey(Technique.ActionKey.SPACE)
             .timing(12, 4, 10)
             .multiplier(1.15)
@@ -17,7 +17,7 @@ public class LinkerRegistry {
             .build());
 
     public static final Technique DISENGAGE = register(new Technique.Builder("disengage", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "rabbit_foot"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "rabbit_foot"))
             .actionKey(Technique.ActionKey.SPACE)
             .timing(12, 4, 10)
             .multiplier(1.12)
@@ -27,7 +27,7 @@ public class LinkerRegistry {
             .build());
 
     public static final Technique SHADOW_STEP = register(new Technique.Builder("shadow_step", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "ender_eye"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "ender_eye"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(10, 3, 8)
             .multiplier(1.20)
@@ -37,7 +37,7 @@ public class LinkerRegistry {
             .build());
 
     public static final Technique BATTLE_CRY = register(new Technique.Builder("battle_cry", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "goat_horn"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "goat_horn"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(14, 5, 11)
             .multiplier(1.18)
@@ -47,7 +47,7 @@ public class LinkerRegistry {
             .build());
 
     public static final Technique DELAYED_FEINT = register(new Technique.Builder("delayed_feint", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "clock"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "clock"))
             .actionKey(Technique.ActionKey.LMB)
             .timing(16, 7, 13)
             .multiplier(1.15)
@@ -57,7 +57,7 @@ public class LinkerRegistry {
             .build());
 
     public static final Technique DEFLECT_PARRY = register(new Technique.Builder("deflect_parry", TechniqueType.LINKER)
-            .source(new ResourceLocation("minecraft", "amethyst_shard"))
+            .source(ResourceLocation.fromNamespaceAndPath("minecraft", "amethyst_shard"))
             .actionKey(Technique.ActionKey.RMB)
             .timing(12, 3, 9)
             .multiplier(1.22)

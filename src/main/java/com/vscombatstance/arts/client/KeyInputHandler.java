@@ -1,5 +1,6 @@
-﻿package com.vscombatstance.arts.client;
+package com.vscombatstance.arts.client;
 
+import com.vscombatstance.VSCombatStanceMod;
 import com.vscombatstance.arts.combat.CombatStyleCapability;
 import com.vscombatstance.arts.combat.ComboEngine;
 import com.vscombatstance.arts.combat.ComboState;
@@ -11,12 +12,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = VSCombatStanceMod.MODID, value = Dist.CLIENT)
 public class KeyInputHandler {
 
     public static final KeyMapping KEY_STANCE = new KeyMapping(
@@ -45,20 +47,23 @@ public class KeyInputHandler {
         if (player == null || mc.screen != null) return;
 
         if (KEY_CYCLE_STYLE.consumeClick()) {
-            CombatStyleCapability.get(player).ifPresent(CombatStyleCapability::cycleActiveStyle);
-            ModNetwork.CHANNEL.sendToServer(new ModNetwork.PacketCycleStyle());
+            CombatStyleCapability cap = CombatStyleCapability.get(player);
+            if (cap != null) {
+                cap.cycleActiveStyle();
+            }
+            PacketDistributor.sendToServer(new ModNetwork.PacketCycleStyle());
         }
 
         if (KEY_STANCE.consumeClick()) {
             ComboEngine.triggerKey(player, Technique.ActionKey.LMB);
-            ModNetwork.CHANNEL.sendToServer(new ModNetwork.PacketTriggerCombat(Technique.ActionKey.LMB));
+            PacketDistributor.sendToServer(new ModNetwork.PacketTriggerCombat(Technique.ActionKey.LMB));
         }
 
         ComboState state = ComboEngine.getState(player);
         if (state.isActive()) {
             if (mc.options.keyJump.consumeClick()) {
                 ComboEngine.triggerKey(player, Technique.ActionKey.SPACE);
-                ModNetwork.CHANNEL.sendToServer(new ModNetwork.PacketTriggerCombat(Technique.ActionKey.SPACE));
+                PacketDistributor.sendToServer(new ModNetwork.PacketTriggerCombat(Technique.ActionKey.SPACE));
             }
         }
     }
@@ -80,7 +85,7 @@ public class KeyInputHandler {
 
             if (key != null) {
                 ComboEngine.triggerKey(player, key);
-                ModNetwork.CHANNEL.sendToServer(new ModNetwork.PacketTriggerCombat(key));
+                PacketDistributor.sendToServer(new ModNetwork.PacketTriggerCombat(key));
             }
         }
     }

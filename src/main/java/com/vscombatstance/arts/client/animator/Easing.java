@@ -1,6 +1,10 @@
-﻿package com.vscombatstance.arts.client.animator;
+package com.vscombatstance.arts.client.animator;
 
 public class Easing {
+    public static float easeOutQuad(float x) {
+        return 1f - (1f - x) * (1f - x);
+    }
+
     public static float easeInOutQuad(float x) {
         return x < 0.5f ? 2f * x * x : 1f - (float) Math.pow(-2f * x + 2f, 2) / 2f;
     }

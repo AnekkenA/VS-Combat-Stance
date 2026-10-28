@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.technique;
+package com.vscombatstance.arts.technique;
 
 import net.minecraft.ChatFormatting;
 

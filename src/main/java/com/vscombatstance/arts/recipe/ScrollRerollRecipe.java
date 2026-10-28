@@ -1,13 +1,12 @@
-﻿package com.vscombatstance.arts.recipe;
+package com.vscombatstance.arts.recipe;
 
 import com.vscombatstance.arts.item.ModItems;
 import com.vscombatstance.arts.item.ScrollItem;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -16,18 +15,18 @@ import java.util.Random;
 
 public class ScrollRerollRecipe extends CustomRecipe {
 
-    public ScrollRerollRecipe(ResourceLocation id, CraftingBookCategory category) {
-        super(id, category);
+    public ScrollRerollRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override
-    public boolean matches(CraftingContainer container, Level level) {
+    public boolean matches(CraftingInput input, Level level) {
         boolean hasScroll = false;
         boolean hasBookAndQuill = false;
         int totalItems = 0;
 
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            ItemStack stack = container.getItem(i);
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getItem(i);
             if (!stack.isEmpty()) {
                 totalItems++;
                 if (stack.is(ModItems.SCROLL.get()) && ScrollItem.getTechniqueId(stack) != null) {
@@ -46,9 +45,9 @@ public class ScrollRerollRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
-        for (int i = 0; i < container.getContainerSize(); i++) {
-            ItemStack stack = container.getItem(i);
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getItem(i);
             if (stack.is(ModItems.SCROLL.get()) && ScrollItem.getTechniqueId(stack) != null) {
                 ItemStack result = stack.copy();
                 result.setCount(1);

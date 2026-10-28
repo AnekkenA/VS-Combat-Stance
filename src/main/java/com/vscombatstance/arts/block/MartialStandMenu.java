@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.block;
+package com.vscombatstance.arts.block;
 
 import com.vscombatstance.arts.combat.CombatStyle;
 import com.vscombatstance.arts.combat.CombatStyleCapability;
@@ -26,10 +26,11 @@ public class MartialStandMenu extends AbstractContainerMenu {
         this.player = playerInv.player;
 
         // Load current active style
-        CombatStyleCapability.get(player).ifPresent(cap -> {
+        CombatStyleCapability cap = CombatStyleCapability.get(player);
+        if (cap != null) {
             this.viewingStyle = cap.getActiveStyleIndex();
             loadStyleIntoContainer(cap.getStyle(viewingStyle));
-        });
+        }
 
         // Add 4 Combat Style slots
         int startX = 44;
@@ -67,7 +68,10 @@ public class MartialStandMenu extends AbstractContainerMenu {
         if (styleIndex < 0 || styleIndex >= CombatStyleCapability.STYLE_COUNT) return;
         saveContainerToStyle();
         this.viewingStyle = styleIndex;
-        CombatStyleCapability.get(player).ifPresent(cap -> loadStyleIntoContainer(cap.getStyle(viewingStyle)));
+        CombatStyleCapability cap = CombatStyleCapability.get(player);
+        if (cap != null) {
+            loadStyleIntoContainer(cap.getStyle(viewingStyle));
+        }
     }
 
     public int getViewingStyle() {
@@ -81,12 +85,13 @@ public class MartialStandMenu extends AbstractContainerMenu {
     }
 
     private void saveContainerToStyle() {
-        CombatStyleCapability.get(player).ifPresent(cap -> {
+        CombatStyleCapability cap = CombatStyleCapability.get(player);
+        if (cap != null) {
             CombatStyle style = cap.getStyle(viewingStyle);
             for (int i = 0; i < CombatStyle.SLOTS; i++) {
                 style.setScroll(i, styleContainer.getItem(i));
             }
-        });
+        }
     }
 
     @Override

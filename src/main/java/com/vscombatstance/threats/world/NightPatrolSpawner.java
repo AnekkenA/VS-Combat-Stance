@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.world;
+package com.vscombatstance.threats.world;
 
 import com.vscombatstance.threats.ai.DynamicShieldGoal;
 import com.vscombatstance.threats.ai.HarpoonHookGoal;
@@ -61,7 +61,7 @@ public class NightPatrolSpawner {
 
                         // Ominous distant horn audio
                         level.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
-                                SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(4).get(), SoundSource.HOSTILE, 1.8f, 0.55f);
+                                SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(4).value(), SoundSource.HOSTILE, 1.8f, 0.55f);
                     }
                 }
             }

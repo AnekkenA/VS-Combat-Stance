@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.item;
+package com.vscombatstance.threats.item;
 
 import com.vscombatstance.threats.world.NightPatrolSpawner;
 import net.minecraft.ChatFormatting;
@@ -40,7 +40,7 @@ public class WarHornItem extends Item {
 
         // Play deep ominous war horn sound
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(4).get(), SoundSource.PLAYERS, 2.0f, 0.55f);
+                SoundEvents.GOAT_HORN_SOUND_VARIANTS.get(4).value(), SoundSource.PLAYERS, 2.0f, 0.55f);
 
         if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
             boolean spawned = NightPatrolSpawner.spawnWarHornWave(serverLevel, player);
@@ -59,7 +59,7 @@ public class WarHornItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("tooltip.customthreats.war_horn_desc").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.customthreats.war_horn_cooldown").withStyle(ChatFormatting.DARK_GRAY));
     }

@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.technique;
+package com.vscombatstance.arts.technique;
 
 import net.minecraft.resources.ResourceLocation;
 
@@ -41,10 +41,12 @@ public class Technique {
 
     public String getId() { return id; }
     public String getNameKey() { return nameKey; }
+    public String getName() { return nameKey; }
     public String getDescKey() { return descKey; }
     public TechniqueType getType() { return type; }
     public ResourceLocation getCraftSourceItem() { return craftSourceItem; }
     public ActionKey getActionKey() { return actionKey; }
+    public ActionKey getRequiredKey() { return actionKey; }
     public int getDurationTicks() { return durationTicks; }
     public int getTimingWindowStart() { return timingWindowStart; }
     public int getTimingWindowEnd() { return timingWindowEnd; }

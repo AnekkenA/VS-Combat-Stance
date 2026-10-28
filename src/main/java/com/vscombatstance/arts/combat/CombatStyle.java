@@ -1,5 +1,6 @@
-﻿package com.vscombatstance.arts.combat;
+package com.vscombatstance.arts.combat;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -35,14 +36,14 @@ public class CombatStyle {
         return true;
     }
 
-    public CompoundTag save() {
+    public CompoundTag save(HolderLookup.Provider registries) {
         CompoundTag tag = new CompoundTag();
         ListTag list = new ListTag();
         for (int i = 0; i < SLOTS; i++) {
             if (!scrolls[i].isEmpty()) {
                 CompoundTag itemTag = new CompoundTag();
                 itemTag.putByte("Slot", (byte) i);
-                scrolls[i].save(itemTag);
+                scrolls[i].save(registries, itemTag);
                 list.add(itemTag);
             }
         }
@@ -50,7 +51,7 @@ public class CombatStyle {
         return tag;
     }
 
-    public void load(CompoundTag tag) {
+    public void load(HolderLookup.Provider registries, CompoundTag tag) {
         for (int i = 0; i < SLOTS; i++) {
             scrolls[i] = ItemStack.EMPTY;
         }
@@ -60,7 +61,7 @@ public class CombatStyle {
                 CompoundTag itemTag = list.getCompound(i);
                 int slot = itemTag.getByte("Slot") & 255;
                 if (slot < SLOTS) {
-                    scrolls[slot] = ItemStack.of(itemTag);
+                    scrolls[slot] = ItemStack.parse(registries, itemTag).orElse(ItemStack.EMPTY);
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.ai;
+package com.vscombatstance.threats.ai;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

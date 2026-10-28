@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.arts.block;
+package com.vscombatstance.arts.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;

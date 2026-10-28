@@ -6,28 +6,27 @@ import com.vscombatstance.arts.block.ModMenuTypes;
 import com.vscombatstance.arts.combat.CombatStyleCapability;
 import com.vscombatstance.arts.combat.ComboEngine;
 import com.vscombatstance.arts.item.ModItems;
-import com.vscombatstance.arts.network.ModNetwork;
 import com.vscombatstance.arts.recipe.ModRecipes;
 import com.vscombatstance.threats.entity.EliteGuardEntity;
 import com.vscombatstance.threats.entity.ModEntities;
 import com.vscombatstance.threats.world.NightPatrolSpawner;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib.GeckoLib;
+
+import java.util.function.Supplier;
 
 /**
  * VS: Combat Stance
@@ -42,9 +41,15 @@ public class VSCombatStanceMod {
     public static final String MODID = "vs_combatstance";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
+    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
+            DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
+
+    public static final Supplier<AttachmentType<CombatStyleCapability>> COMBAT_STYLES =
+            ATTACHMENT_TYPES.register("combat_styles", () -> AttachmentType.serializable(CombatStyleCapability::new).copyOnDeath().build());
+
     public VSCombatStanceMod(IEventBus modEventBus) {
-        // Инициализация GeckoLib для скелетных анимаций мобов
-        GeckoLib.initialize();
+        // Регистрация Attachment Types (Combat Styles)
+        ATTACHMENT_TYPES.register(modEventBus);
 
         // 1. Регистрация контента боевых искусств (Arts)
         ModBlocks.BLOCKS.register(modEventBus);
@@ -59,18 +64,12 @@ public class VSCombatStanceMod {
         com.vscombatstance.threats.item.ModItems.ITEMS.register(modEventBus);
         com.vscombatstance.threats.item.ModItems.CREATIVE_MODE_TABS.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::entityAttributeEvent);
 
-        NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new CombatEvents());
         NeoForge.EVENT_BUS.register(new com.vscombatstance.threats.combat.ThreatCombatEvents());
 
         LOGGER.info("VS: Combat Stance (Arts + Threats) initialized successfully for Voxel Stand!");
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(ModNetwork::register);
     }
 
     private void entityAttributeEvent(EntityAttributeCreationEvent event) {
@@ -79,31 +78,16 @@ public class VSCombatStanceMod {
 
     public static class CombatEvents {
         @SubscribeEvent
-        public void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-            if (event.getObject() instanceof Player) {
-                event.addCapability(new ResourceLocation(MODID, "combat_styles"), new CombatStyleCapability());
+        public void onPlayerTick(PlayerTickEvent.Post event) {
+            Player player = event.getEntity();
+            if (player != null && !player.level().isClientSide) {
+                ComboEngine.tickPlayer(player);
             }
         }
 
         @SubscribeEvent
-        public void onPlayerClone(PlayerEvent.Clone event) {
-            event.getOriginal().getCapability(CombatStyleCapability.INSTANCE).ifPresent(oldCap -> {
-                event.getEntity().getCapability(CombatStyleCapability.INSTANCE).ifPresent(newCap -> {
-                    newCap.deserializeNBT(oldCap.serializeNBT());
-                });
-            });
-        }
-
-        @SubscribeEvent
-        public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-            if (event.phase == TickEvent.Phase.END && !event.player.level().isClientSide) {
-                ComboEngine.serverTick(event.player);
-            }
-        }
-
-        @SubscribeEvent
-        public void onLevelTick(TickEvent.LevelTickEvent event) {
-            if (event.phase == TickEvent.Phase.END && event.level instanceof ServerLevel serverLevel) {
+        public void onLevelTick(LevelTickEvent.Post event) {
+            if (event.getLevel() instanceof ServerLevel serverLevel) {
                 NightPatrolSpawner.checkMidnightPatrol(serverLevel);
             }
         }

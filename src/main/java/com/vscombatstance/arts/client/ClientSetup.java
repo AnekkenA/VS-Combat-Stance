@@ -1,32 +1,35 @@
-﻿package com.vscombatstance.arts.client;
+package com.vscombatstance.arts.client;
 
-import com.vscombatstance.arts.CustomArtsMod;
+import com.vscombatstance.VSCombatStanceMod;
 import com.vscombatstance.arts.block.ModMenuTypes;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
-@Mod.EventBusSubscriber(modid = VSCombatStanceMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = VSCombatStanceMod.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            MenuScreens.register(ModMenuTypes.MARTIAL_STAND_MENU.get(), MartialStandScreen::new);
-            // Инициализация слоя анимаций playerAnimator для приемов боевых искусств
             com.vscombatstance.arts.client.animator.PlayerAnimationManager.init();
         });
     }
 
     @SubscribeEvent
-    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "combat_hud", new CombatHudOverlay());
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.MARTIAL_STAND_MENU.get(), MartialStandScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerOverlays(RegisterGuiLayersEvent event) {
+        event.registerAbove(VanillaGuiLayers.CROSSHAIR, ResourceLocation.fromNamespaceAndPath(VSCombatStanceMod.MODID, "combat_hud"), CombatHudOverlay::render);
     }
 
     @SubscribeEvent

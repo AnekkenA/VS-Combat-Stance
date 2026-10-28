@@ -1,4 +1,4 @@
-﻿package com.vscombatstance.threats.ai;
+package com.vscombatstance.threats.ai;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

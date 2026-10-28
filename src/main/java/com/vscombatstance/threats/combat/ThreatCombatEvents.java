@@ -14,19 +14,20 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import com.vscombatstance.VSCombatStanceMod;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.entity.living.LivingAttackEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = VSCombatStanceMod.MODID)
 public class ThreatCombatEvents {
     private static final Random RANDOM = new Random();
 
     @SubscribeEvent
-    public static void onLivingAttack(LivingAttackEvent event) {
+    public static void onLivingAttack(LivingIncomingDamageEvent event) {
         LivingEntity victim = event.getEntity();
         if (!(victim instanceof Monster mob)) return;
         if (!mob.getTags().contains(NightPatrolSpawner.TAG_IS_ELITE)) return;
@@ -68,7 +69,8 @@ public class ThreatCombatEvents {
         LivingEntity entity = event.getEntity();
         if (!entity.getTags().contains(NightPatrolSpawner.TAG_IS_ELITE)) return;
 
-        int looting = Math.min(3, event.getLootingLevel());
+        int looting = 0;
+        if (event.getSource().getEntity() instanceof Player) looting = 1;
         double x = entity.getX();
         double y = entity.getY();
         double z = entity.getZ();
