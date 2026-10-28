@@ -69,7 +69,7 @@ public class KeyInputHandler {
     }
 
     @SubscribeEvent
-    public static void onMouseButton(InputEvent.MouseButton event) {
+    public static void onMouseButton(InputEvent.MouseButton.Pre event) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null || mc.screen != null) return;
