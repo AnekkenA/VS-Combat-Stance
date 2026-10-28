@@ -1,4 +1,4 @@
-name: Build VS: Combat Stance Addon (1.21.1 NeoForge)
+name: "Build VS Combat Stance Addon (1.21.1 NeoForge)"
 
 on:
   push:
